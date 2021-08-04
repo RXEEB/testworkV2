@@ -62,7 +62,7 @@ function App() {
     <div className="App">
 
       <div className='wrapper'>
-        
+        <p>sdfsdfsdf</p>
         <Palette currentColor={currentColor}
         colors ={colors} 
         setCurrentColor ={setCurrentColor}/>
