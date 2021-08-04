@@ -15,9 +15,7 @@ function ColorPicker({ onColor,color }) {
             
             <div className={style.colorBox}  style={{background: color}}
                 onClick = {onClickColor}>
-                <img className={style.delete} src="/img/delete.svg" alt="Plus"
-         
-                />
+                {/* <img className={style.delete} src="/img/delete.svg" alt="Plus"/> */}
 
             </div>
 

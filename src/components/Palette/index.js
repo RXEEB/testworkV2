@@ -6,19 +6,23 @@ function Pallete ({addedColors =[],currentColor, colors ,setCurrentColor}) {
     
     return(
      
-       <div className= {style.wrapper}>
+       <div className= {style.wrapper} >
+           <div className ={style.palette_container} >
            
-           {/* {colors.map((obj) => (<div className = {style.colorBox} style={{ background: currentColor}}></div>
+           <div className = {style.colorBox} style={{ background: currentColor}}>
+           <img className={style.delete} src="/img/delete.svg" alt="Plus"/>
+           </div>
               
-           ))
-
-               
-           } */}
            {
-               addedColors.map((obj) => (
-                <div className = {style.colorBox} style={{ background: obj.color}}></div> 
+               addedColors.slice(0, 11).map((obj, index) => (
+                <div className = {style.colorBox} style={{ background: obj.color}} key ={index}>
+                    <img className={style.delete} src="/img/delete.svg" alt="Plus"/>
+                </div> 
+
                ))
            }
+           
+           </div>
        </div>
     )
 }

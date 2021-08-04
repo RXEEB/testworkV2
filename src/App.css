@@ -18,3 +18,10 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+
+hr {
+  padding-bottom: 1px;
+  background-color: #9b9b9b;
+  border-bottom:1px solid #F4F4F4;
+  }

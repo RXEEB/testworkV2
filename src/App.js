@@ -4,15 +4,6 @@ import './App.css';
 import ColorPicker from './components/ColorPicker';
 import Palette from './components/Palette';
 
-// const colors = [
-//   '#FF453A',
-//   '#FF9F0A',
-//   '#FFD60A',
-//   '#32D74B',
-//   '#64D2FF',
-//   '#0A84FF',
-//   '#BF5AF2',
-//   '#FF375F',]
 
 function App() {
   const [items , setItems] = React.useState([])
@@ -37,12 +28,14 @@ const onAddToPalette = (obj) => {
     <div className="App">
 
       <div className='wrapper'>
-        <p>sdfsdfsdf</p>
+        <div className='palette_container'>
         <Palette 
         currentColor={currentColor}
         setCurrentColor ={setCurrentColor}
         addedColors ={paletteItems}
         />
+        </div>
+        <hr></hr>
         <div className='colorPicker_container'>
           {
             items.map((item, id) => (
