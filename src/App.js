@@ -1,78 +1,55 @@
+import axios from 'axios';
 import React from 'react'
 import './App.css';
 import ColorPicker from './components/ColorPicker';
 import Palette from './components/Palette';
 
-const colors = [
-  '#FF453A',
-  '#FF9F0A',
-  '#FFD60A',
-  '#32D74B',
-  '#64D2FF',
-  '#0A84FF',
-  '#BF5AF2',
-  '#FF375F',]
+// const colors = [
+//   '#FF453A',
+//   '#FF9F0A',
+//   '#FFD60A',
+//   '#32D74B',
+//   '#64D2FF',
+//   '#0A84FF',
+//   '#BF5AF2',
+//   '#FF375F',]
 
 function App() {
-  const [items , setItems] =React.useState(
-    [
-      {
-        "id": "1",
-        "color": "#FF453A"
-      },
-      {
-        "id": "2",
-        "color": "#FF9F0A"
-      },
-      {
-        "id": "3",
-        "color": "#FFD60A"
-      },
-      {
-        "id": "4",
-        "color": "#32D74B"
-      },
-      {
-        "id": "5",
-        "color": "#64D2FF"
-      },
-      {
-        "id": "6",
-        "color": "#0A84FF"
-      },
-      {
-        "id": "7",
-        "color": "#BF5AF2"
-      },
-      {
-        "id": "8",
-        "color": "#FF375F"
-      }
-    ]
-  )
+  const [items , setItems] = React.useState([])
+  const [paletteItems,setPaletteItems] = React.useState([])
   const [currentColor, setCurrentColor] = React.useState('#FF453A')
   const [isAdded, setIsAdded] = React.useState(null)
   const [isDeleted, setIsDeleted] = React.useState(null)
 
+  React.useEffect(()=>{
+    axios.get('https://610a1f3352d56400176afc0f.mockapi.io/colors').then((res) => {
+      setItems(res.data)
+    })
+  },[])
 
 
 
+const onAddToPalette = (obj) => {
+  setPaletteItems([...paletteItems, obj])
+}
 
   return (
     <div className="App">
 
       <div className='wrapper'>
         <p>sdfsdfsdf</p>
-        <Palette currentColor={currentColor}
-        colors ={colors} 
-        setCurrentColor ={setCurrentColor}/>
+        <Palette 
+        currentColor={currentColor}
+        setCurrentColor ={setCurrentColor}
+        addedColors ={paletteItems}
+        />
         <div className='colorPicker_container'>
           {
-            items.map((obj, id) => (
+            items.map((item, id) => (
               <ColorPicker
                 key ={id}
-                color ={obj.color}
-                onAddColor={() => setCurrentColor(obj)}
+                color ={item.color}
+                onColor = {(obj) => onAddToPalette(obj)}
                 onDeleteColor={() => console.log('удалено')}
               />
             ))
