@@ -3,10 +3,10 @@ import style from './ColorPicker.module.css'
 
 
 
-function ColorPicker({ onColor,color }) {
+function ColorPicker({ onColor,color,id }) {
 
    const onClickColor = () => {
-        onColor({color})
+        onColor({color, id})
     }
 
  return (

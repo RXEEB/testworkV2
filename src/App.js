@@ -21,7 +21,10 @@ function App() {
 
 
 const onAddToPalette = (obj) => {
-  setPaletteItems([...paletteItems, obj])
+ 
+setPaletteItems((prev)  => [...prev , obj])
+  
+  
 }
 
   return (
@@ -41,7 +44,7 @@ const onAddToPalette = (obj) => {
             items.map((item, id) => (
               <ColorPicker
                 key ={id}
-                color ={item.color}
+                {...item}
                 onColor = {(obj) => onAddToPalette(obj)}
                 onDeleteColor={() => console.log('удалено')}
               />
