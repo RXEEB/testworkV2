@@ -16,16 +16,21 @@ function App() {
     axios.get('https://610a1f3352d56400176afc0f.mockapi.io/colors').then((res) => {
       setItems(res.data)
     })
+    axios.get('https://610a1f3352d56400176afc0f.mockapi.io/batapalette').then((res) => {
+      setPaletteItems(res.data)
+    })
+    
   },[])
 
-
-
 const onAddToPalette = (obj) => {
- 
-setPaletteItems((prev)  => [...prev , obj])
-  
-  
-}
+  axios.post('https://610a1f3352d56400176afc0f.mockapi.io/batapalette',obj)
+  setPaletteItems((prev)  => [...prev , obj])
+  }
+ const onRemoveItem = (id) => {
+   console.log(id)
+  axios.delete(`https://610a1f3352d56400176afc0f.mockapi.io/batapalette/${id}`)
+  setPaletteItems((prev)  => prev.filter(item => item.id !== id))
+ }
 
   return (
     <div className="App">
@@ -36,6 +41,7 @@ setPaletteItems((prev)  => [...prev , obj])
         currentColor={currentColor}
         setCurrentColor ={setCurrentColor}
         addedColors ={paletteItems}
+        onRemoveItem ={onRemoveItem}
         />
         </div>
         <hr></hr>
