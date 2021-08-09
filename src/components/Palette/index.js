@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Palette.module.css'
 
-function Pallete({ addedColors = [], currentColor, onRemoveItem, color, paletteItems, setPaletteItems }) {
+function Pallete({ addedColors = [],  onRemoveItem }) {
 
 
 

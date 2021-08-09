@@ -6,12 +6,14 @@ import ColorPicker from './components/ColorPicker';
 import Palette from './components/Palette';
 
 
+import ColorPage from './Pages/colors'
+
+
 function App() {
   const [items, setItems] = React.useState([])
   const [paletteItems, setPaletteItems] = React.useState([])
-  const [currentColor, setCurrentColor] = React.useState('#FF453A')
-  const [isAdded, setIsAdded] = React.useState(null)
-  const [isDeleted, setIsDeleted] = React.useState(null)
+
+
 
   React.useEffect(() => {
     axios.get('https://610a1f3352d56400176afc0f.mockapi.io/colors').then((res) => {
@@ -24,11 +26,18 @@ function App() {
   }, [])
 
   const onAddToPalette = (obj) => {
-    axios.post('https://610a1f3352d56400176afc0f.mockapi.io/batapalette', obj)
-    setPaletteItems((prev) => [...prev, obj])
+    axios.delete(`https://610a1f3352d56400176afc0f.mockapi.io/batapalette/${obj.id}`)
+    if (paletteItems.find((item) => Number(item.id) === Number(obj.id))) {
+      setPaletteItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)))
+    } else {
+      axios.post('https://610a1f3352d56400176afc0f.mockapi.io/batapalette', obj)
+      setPaletteItems((prev) => [...prev, obj])
+    }
+
   }
+
+
   const onRemoveItem = (id) => {
-    console.log(id)
     axios.delete(`https://610a1f3352d56400176afc0f.mockapi.io/batapalette/${id}`)
     setPaletteItems((prev) => prev.filter(item => item.id !== id))
   }
@@ -37,14 +46,12 @@ function App() {
     <div className="App">
       <Link to="/">формы</Link>
       <Link to="/palette">палитра</Link>
-      
 
-        <div className='wrapper'>
+
+      <div className='wrapper'>
         <Route path="/palette" exact>
           <div className='palette_container'>
             <Palette
-              currentColor={currentColor}
-              setCurrentColor={setCurrentColor}
               addedColors={paletteItems}
               onRemoveItem={onRemoveItem}
             />
@@ -58,16 +65,18 @@ function App() {
                   {...item}
                   onColor={(obj) => onAddToPalette(obj)}
                   onDeleteColor={() => console.log('удалено')}
+                  isAdded
+
                 />
               ))
             }
           </div>
 
           <button className='btn'>Добавить цвет</button>
-          </Route>
-        </div>
-     
-      
+        </Route>
+      </div>
+
+<ColorPage/>
 
     </div>
   );
